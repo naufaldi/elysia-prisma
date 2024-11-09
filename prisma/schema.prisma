@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  coffeeshops Coffeeshop[]
+}
+
+model Coffeeshop {
+  id        String   @id @default(cuid())
+  name      String
+  lat       Float // Latitude
+  long      Float // Longitude
+  geojson   String // GeoJSON representation of the location
+  hasWifi   Boolean
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  // Indexes for faster GIS queries if needed
+  @@index([lat, long])
+}
