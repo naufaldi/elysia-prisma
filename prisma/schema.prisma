@@ -17,6 +17,15 @@ model User {
 
   // Relations
   coffeeshops Coffeeshop[]
+  sessions    Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Coffeeshop {
