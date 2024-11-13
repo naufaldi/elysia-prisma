@@ -54,4 +54,21 @@ export const authRouter = new Elysia()
         password: t.String({ minLength: 1 }),
       }),
     }
+  )
+  .post(
+    '/logout',
+    async ({ cookie: { session }, set }) => {
+      const sessionId = session.value;
+      if (!sessionId) {
+        set.status = 401;
+        return { error: 'Unauthorized' };
+      }
+      await authService.logoutUser(sessionId);
+      session.remove();
+      set.status = 200;
+      return { message: 'User logged out successfully' };
+    },
+    {
+      tags: ['auth'],
+    }
   );

@@ -2,16 +2,16 @@
 
 ## TO DO
 
-- [ ] Create Coffeshop
-- [ ] Create Session
-- [ ] Create User
-- [ ] Register User
-- [ ] Login User
-- [ ] Logout User
-- [ ] Get Coffeshop
-- [ ] Get Coffeshop by ID
-- [ ] Update Coffeshop
-- [ ] Delete Coffeshop
+- [x] Create Coffeshop
+- [x] Create Session
+- [x] Create User
+- [x] Register User
+- [x] Login User
+- [x] Logout User
+- [x] Get Coffeshop
+- [x] Get Coffeshop by ID
+- [x] Update Coffeshop
+- [x] Delete Coffeshop
 
 ## Layered Architecture Overview
 

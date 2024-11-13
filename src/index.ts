@@ -2,6 +2,7 @@ import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
 import { authRouter } from '@/presentation/router/auth-router';
 import { swagger } from '@elysiajs/swagger';
+import { coffeeshopRouter } from '@/presentation/router/coffeeshop-router';
 
 const app = new Elysia()
   .use(cors())
@@ -19,6 +20,7 @@ const app = new Elysia()
     })
   )
   .use(authRouter)
+  .use(coffeeshopRouter)
   .get('/', () => 'Hello Elysia')
   .listen(3000);
 

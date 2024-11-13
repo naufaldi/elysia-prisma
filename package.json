@@ -10,11 +10,13 @@
     "@elysiajs/swagger": "^1.1.5",
     "@prisma/client": "^5.22.0",
     "elysia": "latest",
+    "geojson-validation": "^1.0.2",
     "inversify": "^6.1.1",
     "reflect-metadata": "^0.2.2",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
+    "@types/geojson-validation": "^1.0.3",
     "bun-types": "latest",
     "prisma": "^5.22.0"
   },
