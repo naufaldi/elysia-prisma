@@ -2,6 +2,11 @@ import Elysia, { t } from 'elysia';
 import { sessionMiddleware } from '@/presentation/middleware/session-middleware';
 import { coffeeshopService } from '@/applications/instance';
 import { ValidationService } from '@/applications/services/validation-service';
+import {
+  CoffeeshopByUserResponseSchema,
+  CreateCoffeeshopRequestSchema,
+  UpdateCoffeeshopRequestSchema,
+} from './schemas/coffeeshop';
 
 export const coffeeshopRouter = new Elysia()
   // middleware
@@ -9,11 +14,41 @@ export const coffeeshopRouter = new Elysia()
   // router
   .get(
     '/user/coffeeshop',
-    async ({ user }) => {
-      const allCoffeeshops = await coffeeshopService.getAll(user);
-      return allCoffeeshops;
+    async ({ user, set }) => {
+      try {
+        const allCoffeeshops = await coffeeshopService.getAll(user);
+        set.status = 200;
+        return {
+          status: 'success',
+          message: 'Coffeeshops by user, retrieved successfully',
+          data: allCoffeeshops,
+        };
+      } catch (error) {
+        set.status = 500;
+        return {
+          status: 'error',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'Failed to retrieve coffeeshops',
+        };
+      }
     },
     {
+      response: {
+        200: t.Object({
+          status: t.Literal('success'),
+          message: t.String(),
+        }),
+        401: t.Object({
+          status: t.Literal('error'),
+          message: t.String(),
+        }),
+        500: t.Object({
+          status: t.Literal('error'),
+          message: t.String(),
+        }),
+      },
       tags: ['coffeeshop'],
     }
   )
@@ -21,7 +56,11 @@ export const coffeeshopRouter = new Elysia()
     '/coffeeshop',
     async ({}) => {
       const allCoffeeshops = await coffeeshopService.getAllCoffeeshops();
-      return allCoffeeshops;
+      return {
+        status: 'success',
+        message: 'Coffeeshops, retrieved successfully',
+        data: allCoffeeshops,
+      };
     },
     {
       tags: ['coffeeshop'],
@@ -31,7 +70,11 @@ export const coffeeshopRouter = new Elysia()
     '/coffeeshop/:id',
     async ({ params }) => {
       const coffeeshop = await coffeeshopService.getById(params.id);
-      return coffeeshop;
+      return {
+        status: 'success',
+        message: 'Coffeeshop, retrieved successfully',
+        data: coffeeshop,
+      };
     },
     {
       tags: ['coffeeshop'],
@@ -50,7 +93,11 @@ export const coffeeshopRouter = new Elysia()
         const coffeeshop = { ...body, ownerId: user.id };
         const createdCoffeeshop = await coffeeshopService.create(coffeeshop);
         set.status = 201;
-        return createdCoffeeshop;
+        return {
+          status: 'success',
+          message: 'Coffeeshop created successfully',
+          data: createdCoffeeshop,
+        };
       } catch (error) {
         set.status = 500;
         return { error: 'Internal Server Error' };
@@ -58,17 +105,7 @@ export const coffeeshopRouter = new Elysia()
     },
     {
       tags: ['coffeeshop'],
-      body: t.Object({
-        name: t.String(),
-        location: t.String(),
-        lat: t.Number(),
-        long: t.Number(),
-        hasWifi: t.Boolean(),
-        notes: t.String(),
-        createdAt: t.Date(),
-        updatedAt: t.Date(),
-        geojson: t.String(),
-      }),
+      body: CreateCoffeeshopRequestSchema,
     }
   )
   .put(
@@ -87,25 +124,22 @@ export const coffeeshopRouter = new Elysia()
           coffeeshop
         );
         set.status = 201;
-        return updatedCoffeeshop;
+        return {
+          status: 'success',
+          message: 'Coffeeshop updated successfully',
+          data: updatedCoffeeshop,
+        };
       } catch (error) {
         set.status = 500;
-        return { error: 'Internal Server Error' };
+        return {
+          status: 'error',
+          message: 'Internal Server Error',
+        };
       }
     },
     {
       tags: ['coffeeshop'],
-      body: t.Object({
-        name: t.String(),
-        location: t.String(),
-        lat: t.Number(),
-        long: t.Number(),
-        hasWifi: t.Boolean(),
-        notes: t.String(),
-        createdAt: t.Date(),
-        updatedAt: t.Date(),
-        geojson: t.String(),
-      }),
+      body: UpdateCoffeeshopRequestSchema,
     }
   )
   .delete(
@@ -113,6 +147,10 @@ export const coffeeshopRouter = new Elysia()
     async ({ params, set }) => {
       await coffeeshopService.delete(params.id);
       set.status = 204;
+      return {
+        status: 'success',
+        message: 'Coffeeshop deleted successfully',
+      };
     },
     {
       tags: ['coffeeshop'],
