@@ -3,7 +3,6 @@ import { sessionMiddleware } from '@/presentation/middleware/session-middleware'
 import { coffeeshopService } from '@/applications/instance';
 import { ValidationService } from '@/applications/services/validation-service';
 import {
-  CoffeeshopByUserResponseSchema,
   CreateCoffeeshopRequestSchema,
   UpdateCoffeeshopRequestSchema,
 } from './schemas/coffeeshop';

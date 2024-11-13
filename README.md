@@ -2,6 +2,8 @@
 
 ## TO DO
 
+## TO DO
+
 - [x] Create Coffeshop
 - [x] Create Session
 - [x] Create User
@@ -12,6 +14,22 @@
 - [x] Get Coffeshop by ID
 - [x] Update Coffeshop
 - [x] Delete Coffeshop
+- [ ] Move List Coffeshop into Public
+- [ ] Add Tests for all endpoints
+- [ ] Add prefix for public, private routes and prefix for version
+- [ ] Add input validation for all request payloads using Zod or similar
+- [ ] Implement proper error handling middleware
+- [ ] Add rate limiting for API endpoints
+- [ ] Implement request logging and monitoring
+- [ ] Add API documentation using OpenAPI/Swagger
+- [ ] Implement refresh token mechanism
+- [ ] Add pagination for list endpoints
+- [ ] Implement proper CORS configuration
+- [ ] Add health check endpoint
+- [ ] Implement caching mechanism
+- [ ] Add database migrations and seeding scripts
+- [ ] Implement proper TypeScript types for all responses
+- [ ] Add environment variables validation
 
 ## Layered Architecture Overview
 
