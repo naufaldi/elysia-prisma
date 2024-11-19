@@ -30,6 +30,11 @@
 - [ ] Add database migrations and seeding scripts
 - [ ] Implement proper TypeScript types for all responses
 - [ ] Add environment variables validation
+- [ ] Add Docker deployment documentation
+- [ ] Setup Docker Compose for development environment
+- [ ] Configure CI/CD pipeline for Docker builds
+- [ ] Add health check endpoint for Docker container
+- [ ] Setup proper Docker volumes for database persistence
 
 ## Layered Architecture Overview
 
